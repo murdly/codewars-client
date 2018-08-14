@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion versions.compileSdk
+    defaultConfig {
+        applicationId "com.akarbowy.codewarsclient"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    // MAIN                                                                                   //
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+    implementation "com.android.support:appcompat-v7:$versions.appcompat"
+    implementation "com.android.support.constraint:constraint-layout:$versions.constraint"
+    implementation "android.arch.lifecycle:extensions:$versions.lifecycle"
+    implementation "android.arch.lifecycle:viewmodel:$versions.lifecycle"
+    kapt "android.arch.persistence.room:compiler:$versions.lifecycle"
+    implementation "android.arch.persistence.room:runtime:$versions.lifecycle"
+    implementation "android.arch.persistence.room:rxjava2:$versions.lifecycle"
+    kapt "android.arch.persistence.room:compiler:$versions.lifecycle"
+
+    implementation "com.google.dagger:dagger:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+    implementation "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin"
+
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$versions.rxJavaAdapter"
+    implementation "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
+    implementation "com.squareup.moshi:moshi-kotlin:$versions.moshi"
+    implementation "se.ansman.kotshi:api:$versions.kotshi"
+    kapt "se.ansman.kotshi:compiler:$versions.kotshi"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    // UTIL                                                                                   //
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    implementation "com.jakewharton.threetenabp:threetenabp:$versions.date"
+    implementation "com.jakewharton.timber:timber:$versions.timber"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    // TESTING                                                                                //
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    testImplementation "junit:junit:$versions.jUnit"
+    androidTestImplementation "com.android.support.test:runner:$versions.runner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
+    testImplementation "org.robolectric:robolectric:$versions.robolectric"
+    androidTestImplementation "com.android.support.test:rules:$versions.rules"
+    testImplementation "org.mockito:mockito-core:$versions.mockito"
+}
