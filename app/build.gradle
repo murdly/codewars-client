@@ -40,7 +40,9 @@ dependencies {
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
-    implementation "com.android.support:appcompat-v7:$versions.appcompat"
+    implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
+    implementation "com.android.support:recyclerview-v7:$versions.supportLibrary"
+    implementation "com.android.support:design:$versions.supportLibrary"
     implementation "com.android.support.constraint:constraint-layout:$versions.constraint"
     implementation "android.arch.lifecycle:extensions:$versions.lifecycle"
     implementation "android.arch.lifecycle:viewmodel:$versions.lifecycle"

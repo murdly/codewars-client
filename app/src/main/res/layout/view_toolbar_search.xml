@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+    <FrameLayout
+        android:id="@+id/toolbar_layout_action"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/ic_search"
+            android:gravity="center_vertical"
+            android:text="@string/toolbar_search_title"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/toolbar_layout_searchable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/field_query"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="@string/toolbar_search_title"
+            android:imeActionLabel="sdsd"
+            android:imeOptions="actionSearch"
+            android:inputType="textFilter"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textColorHint="#ebebeb"
+            android:textCursorDrawable="@drawable/shape_text_cursor"/>
+
+        <ImageView
+            android:id="@+id/button_field_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:contentDescription="@string/toolbar_action_close"
+            android:src="@drawable/ic_cancel"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+</android.support.v7.widget.Toolbar>

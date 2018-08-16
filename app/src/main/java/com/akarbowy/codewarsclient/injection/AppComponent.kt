@@ -2,10 +2,10 @@ package com.akarbowy.codewarsclient.injection
 
 import com.akarbowy.codewarsclient.App
 import com.akarbowy.codewarsclient.base.BaseModule
-import com.akarbowy.codewarsclient.data.injection.RepositoryModule
+import com.akarbowy.codewarsclient.data.repository.injection.RepositoryModule
 import com.akarbowy.codewarsclient.injection.scopes.PerApplication
-import com.akarbowy.codewarsclient.network.injection.NetworkModule
-import com.akarbowy.codewarsclient.persistance.injection.PersistenceModule
+import com.akarbowy.codewarsclient.data.network.injection.NetworkModule
+import com.akarbowy.codewarsclient.data.persistance.injection.PersistenceModule
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule

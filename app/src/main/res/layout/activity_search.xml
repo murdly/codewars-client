@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.akarbowy.codewarsclient.ui.search.viewmodel.SearchViewModel"/>
@@ -13,6 +15,61 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.search.view.SearchActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <com.akarbowy.codewarsclient.controls.search.SearchToolbarView
+                android:id="@+id/search_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                bind:searchCallback="@{ viewModel.searchCallback }"
+                bind:searchQuery="@{ viewModel.query }"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/history_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBar"
+            bind:searchesData="@{ viewModel.historySearches }"
+            bind:searchesEventHandler="@{ viewModel.userEventHandler }"
+            bind:visibility="@{ !viewModel.historySearches.isEmpty() }"
+            tools:listitem="@layout/search_item_user"/>
+
+        <include
+            layout="@layout/state_history_empty"
+            bind:isVisible="@{ viewModel.historySearches.isEmpty() &amp;&amp; !viewModel.isSearchingInProgress &amp;&amp; !viewModel.noResultsFound }"/>
+
+        <include
+            layout="@layout/state_results_searching"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintTop_toBottomOf="@id/history_list"
+            bind:isVisible="@{ viewModel.isSearchingInProgress }"/>
+
+        <include
+            layout="@layout/state_results_no_found"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintTop_toBottomOf="@id/history_list"
+            bind:isVisible="@{ viewModel.noResultsFound &amp;&amp; !viewModel.isSearchingInProgress}"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="@{ !viewModel.isDataLoaded }"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBar"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

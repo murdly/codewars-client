@@ -1,7 +1,10 @@
 package com.akarbowy.codewarsclient.ui.search.interactor
 
-import com.akarbowy.codewarsclient.data.users.model.User
-import com.akarbowy.codewarsclient.data.users.repository.UserRepository
+import com.akarbowy.codewarsclient.data.persistance.entities.UserEntity
+import com.akarbowy.codewarsclient.data.repository.users.UserRepository
+import com.akarbowy.codewarsclient.ui.search.viewmodel.SearchViewModel
+import com.akarbowy.codewarsclient.ui.search.viewmodel.SearchViewModel.Companion.INVALID_USER_DATA
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.Flowable
 import io.reactivex.Single
 
@@ -11,11 +14,37 @@ class SearchInteractorImpl(
         private val repository: UserRepository
 ) : SearchInteractor {
 
-    override fun searchUser(username: String): Single<User> {
+    override fun searchUser(username: String): Single<SearchViewModel.SearchResult> {
         return repository.searchUser(username)
+                .map { toUserData(it) }
+                .onErrorResumeNext {
+                    if (it is HttpException && it.code() == 404) {
+                        Single.just(SearchViewModel.SearchResult.NoUser)
+                    } else {
+                        Single.error(it)
+                    }
+                }
+
     }
 
-    override fun getLastFiveSearches(): Flowable<User> {
+    override fun getLastFiveSearches(): Flowable<List<SearchViewModel.SearchResult>> {
         return repository.getSearches(NUMBER_OF_RECENT_SEARCHES)
+                .flatMap { list ->
+                    Flowable.just(list.map { toUserData(it) })
+                }
     }
+
+    private fun toUserData(user: UserEntity): SearchViewModel.SearchResult {
+
+        var data: SearchViewModel.SearchResult = INVALID_USER_DATA
+
+        user.userId.also { id ->
+            user.position?.also { position ->
+                data = SearchViewModel.SearchResult.UserData(id, position, user.bestLanguage)
+            }
+        }
+
+        return data
+    }
+
 }

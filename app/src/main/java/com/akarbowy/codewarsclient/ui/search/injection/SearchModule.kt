@@ -1,7 +1,7 @@
 package com.akarbowy.codewarsclient.ui.search.injection
 
 import com.akarbowy.codewarsclient.base.ViewModelProviderFactory
-import com.akarbowy.codewarsclient.data.users.repository.UserRepository
+import com.akarbowy.codewarsclient.data.repository.users.UserRepository
 import com.akarbowy.codewarsclient.ui.search.interactor.SearchInteractor
 import com.akarbowy.codewarsclient.ui.search.interactor.SearchInteractorImpl
 import com.akarbowy.codewarsclient.ui.search.router.SearchRouter
