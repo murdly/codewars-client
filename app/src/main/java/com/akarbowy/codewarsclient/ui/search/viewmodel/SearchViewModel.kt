@@ -133,8 +133,11 @@ class SearchViewModel(
 
     }
 
-    private fun onUserClicked(user: SearchResult) {
-        Timber.i("User clicked $user")
+    private fun onUserClicked(result: SearchResult) {
+        Timber.i("User clicked $result")
+
+        val userData = result as SearchResult.UserData
+        router.loadChallengesScreen(userData.username)
     }
 
     val searchCallback = object : SearchToolbarView.Callback {

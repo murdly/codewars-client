@@ -19,4 +19,8 @@
     <string name="state_results_empty_instruction">Try a different username</string>
     <!--end of SEARCH-->
 
+    <!--CHALLENGES-->
+    <string name="challenge_toolbar_title">%s\'s challenges</string>
+    <!--end of CHALLENGES-->
+
 </resources>

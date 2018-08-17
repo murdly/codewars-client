@@ -4,17 +4,22 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import com.akarbowy.codewarsclient.data.persistance.converters.Converters
+import com.akarbowy.codewarsclient.data.persistance.daos.ChallengeDao
 import com.akarbowy.codewarsclient.data.persistance.daos.UserDao
+import com.akarbowy.codewarsclient.data.persistance.entities.ChallengeEntity
 import com.akarbowy.codewarsclient.data.persistance.entities.UserEntity
 
-@Database(version = 1,
+@Database(version = 2,
         exportSchema = false,
         entities = [
-            UserEntity::class
+            UserEntity::class,
+            ChallengeEntity::class
         ]
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+
+    abstract fun challengeDao(): ChallengeDao
 }

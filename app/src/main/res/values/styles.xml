@@ -11,4 +11,8 @@
     <style name="OverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">@color/colorAccent</item>
     </style>
+
+    <style name="AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
 </resources>
