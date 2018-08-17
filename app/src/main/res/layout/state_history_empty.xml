@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="8dp"
-            android:drawableTop="@drawable/ic_search_history_palette_3_100dp"
+            android:drawableTop="@drawable/ic_search_dark_100dp"
             android:gravity="center"
             android:text="@string/state_history_empty_title"
             android:textColor="#0c0c0c"

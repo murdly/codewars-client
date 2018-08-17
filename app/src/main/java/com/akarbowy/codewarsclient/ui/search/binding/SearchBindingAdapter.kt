@@ -41,9 +41,10 @@ fun bindRecentSearches(recyclerView: RecyclerView,
         })
 
     }
-
-    adapter.list = data as ArrayList<SearchViewModel.SearchResult>
-    adapter.notifyDataSetChanged()
+    data?.let {
+        adapter.list = data as ArrayList<SearchViewModel.SearchResult>
+        adapter.notifyDataSetChanged()
+    }
 }
 
 @BindingAdapter(value = ["searchQuery", "searchCallback"])

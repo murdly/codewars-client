@@ -19,8 +19,7 @@ interface CodewarsApi {
                                @Query("page") page: Int): Single<CompletedChallengeResponse>
 
     @GET("users/{id}/code-challenges/authored")
-    fun getAuthoredChallenges(@Path("id") username: String,
-                              @Query("page") page: Int): Single<AuthoredChallengeResponse>
+    fun getAuthoredChallenges(@Path("id") username: String): Single<AuthoredChallengeResponse>
 
     @GET("code-challenges/{id}")
     fun getChallengeDetail(@Path("id") username: String): Single<Challenge>

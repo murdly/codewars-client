@@ -26,6 +26,8 @@ class SearchViewModel(
 
     val subject: PublishSubject<String> = PublishSubject.create()
 
+    val isInSearchMode = ObservableBoolean(false)
+
     val isSearchingInProgress = ObservableBoolean(false)
 
     val noResultsFound = ObservableBoolean(false)
@@ -44,6 +46,7 @@ class SearchViewModel(
 
     private fun initUserFocusEventHandler() {
         disposables += userEventHandler.clickObserver
+                .throttleFirst(1000, TimeUnit.MILLISECONDS)
                 .subscribeBy(
                         onNext = { this.onUserClicked(it) }
                 )
@@ -71,6 +74,7 @@ class SearchViewModel(
 
     private fun subscribeToSearchQuery() {
         disposables += subject
+                .skip(1)
                 .doOnNext { filterCurrentResults(it) }
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .distinctUntilChanged()
@@ -141,6 +145,10 @@ class SearchViewModel(
     }
 
     val searchCallback = object : SearchToolbarView.Callback {
+        override fun onModeChanged(mode: SearchToolbarView.Mode) {
+            isInSearchMode.set(mode == SearchToolbarView.Mode.Search)
+        }
+
         override fun onMenuItemClicked(itemId: Int): Boolean {
             return when (itemId) {
                 R.id.action_sort_recent -> {

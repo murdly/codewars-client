@@ -21,6 +21,8 @@
 
     <!--CHALLENGES-->
     <string name="challenge_toolbar_title">%s\'s challenges</string>
+    <string name="challenge_tab_completed">Completed</string>
+    <string name="challenge_tab_authored">Authored</string>
     <!--end of CHALLENGES-->
 
 </resources>

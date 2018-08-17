@@ -4,6 +4,7 @@ import com.akarbowy.codewarsclient.injection.DaggerAppComponent
 import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
+import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -20,16 +21,16 @@ class App : DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        setupUtilTools()
+        setupThirdParty()
         setupDebugTools()
     }
 
-    private fun setupUtilTools() {
+    private fun setupThirdParty() {
         initDateTime()
+        initRxJavaPlugins()
     }
 
     private fun setupDebugTools() {
-//        initStrictMode()
         initTimber()
     }
 
@@ -40,5 +41,9 @@ class App : DaggerApplication() {
     private fun initDateTime() {
         AndroidThreeTen.init(this)
 
+    }
+
+    private fun initRxJavaPlugins() {
+        RxJavaPlugins.setErrorHandler { error -> Timber.e(error, "Undeliverable exception reported.") }
     }
 }

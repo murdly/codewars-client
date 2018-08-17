@@ -77,6 +77,8 @@ class SearchToolbarView @JvmOverloads constructor(
             Mode.Search -> setSearchMode()
             Mode.Normal -> setNormalMode()
         }
+
+        callback?.onModeChanged(mode)
     }
 
     private fun setNormalMode() {
@@ -107,6 +109,8 @@ class SearchToolbarView @JvmOverloads constructor(
         fun onQueryTextChange(queryText: String)
 
         fun onMenuItemClicked(itemId: Int): Boolean
+
+        fun onModeChanged(mode: Mode)
     }
 }
 

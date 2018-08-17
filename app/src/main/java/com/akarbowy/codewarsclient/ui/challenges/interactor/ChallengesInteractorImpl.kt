@@ -14,4 +14,9 @@ class ChallengesInteractorImpl(
         return repository.loadCompletedChallenges(username)
     }
 
+    override fun loadAuthoredChallenges(username: String): Flowable<List<Challenge>> {
+        return repository.loadAuthoredChallenges(username)
+
+    }
+
 }

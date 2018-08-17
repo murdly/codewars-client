@@ -35,4 +35,10 @@ class ChallengesActivity : BaseBindingActivity<ActivityChallengesBinding, Challe
         toolbar.setNavigationOnClickListener { finish() }
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        overridePendingTransition(0, 0);
+    }
+
 }

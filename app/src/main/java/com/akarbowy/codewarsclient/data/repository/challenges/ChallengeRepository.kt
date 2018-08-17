@@ -11,4 +11,7 @@ import io.reactivex.Single
 interface ChallengeRepository {
 
     fun loadCompletedChallenges(username: String): Flowable<PagedList<Challenge>>
+
+    fun loadAuthoredChallenges(username: String): Flowable<List<Challenge>>
+
 }

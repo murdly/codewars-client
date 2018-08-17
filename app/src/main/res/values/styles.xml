@@ -6,6 +6,10 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+
+        <item name="android:fontFamily">monospace</item>
+        <item name="fontFamily">monospace</item>
+
     </style>
 
     <style name="OverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
@@ -14,5 +18,10 @@
 
     <style name="AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="AppTheme.TabText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textColor">@drawable/tab_item_selector</item>
     </style>
 </resources>

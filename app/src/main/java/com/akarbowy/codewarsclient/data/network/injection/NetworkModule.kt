@@ -1,8 +1,8 @@
 package com.akarbowy.codewarsclient.data.network.injection
 
-import com.akarbowy.codewarsclient.injection.scopes.PerApplication
 import com.akarbowy.codewarsclient.data.network.adapter.ApplicationJsonAdapterFactory
 import com.akarbowy.codewarsclient.data.network.api.CodewarsApi
+import com.akarbowy.codewarsclient.injection.scopes.PerApplication
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -12,6 +12,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 @Module
@@ -23,7 +24,12 @@ class NetworkModule {
 
     @Provides
     @PerApplication
-    fun provideOkHttpClientBuilder(): OkHttpClient.Builder = OkHttpClient.Builder()
+    fun provideOkHttpClientBuilder(): OkHttpClient.Builder {
+        return OkHttpClient.Builder()
+                .readTimeout(25, TimeUnit.SECONDS)
+                .connectTimeout(25, TimeUnit.SECONDS)
+                .writeTimeout(25, TimeUnit.SECONDS)
+    }
 
     @Provides
     @PerApplication
@@ -49,11 +55,12 @@ class NetworkModule {
     @Provides
     @PerApplication
     fun provideApi(builder: Retrofit.Builder,
-                          okHttpClientBuilder: OkHttpClient.Builder,
-                          converterFactory: Converter.Factory,
-                          apiKeyInterceptor: Interceptor): CodewarsApi {
+                   okHttpClientBuilder: OkHttpClient.Builder,
+                   converterFactory: Converter.Factory,
+                   apiKeyInterceptor: Interceptor): CodewarsApi {
 
         okHttpClientBuilder.addNetworkInterceptor(apiKeyInterceptor)
+
         val client = okHttpClientBuilder.build()
         return builder.client(client)
                 .baseUrl(CodewarsApi.BASE_URL)

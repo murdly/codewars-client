@@ -45,8 +45,8 @@ class ChallengeRepositoryImpl(
                     override fun onItemAtEndLoaded(itemAtEnd: Challenge) {
                         Timber.i("onItemAtEndLoaded $page")
                         Single.fromCallable { database.challengeDao().count() }
-                                .flatMap {
-                                    api.getCompletedChallenges(username, nextPage(it))
+                                .flatMap { page ->
+                                    api.getCompletedChallenges(username, nextPage(page))
                                             .doOnSuccess { cacheChallenges(it) }
                                 }
                                 .subscribeOn(Schedulers.io())
@@ -62,6 +62,16 @@ class ChallengeRepositoryImpl(
     private fun nextPage(count: Int): Int {
         return count / DEFAULT_PAGE_SIZE
     }
+
+    override fun loadAuthoredChallenges(username: String): Flowable<List<Challenge>> {
+
+        return api.getAuthoredChallenges(username)
+                .map { it.data ?: ArrayList() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .toFlowable()
+    }
+
 
     private fun cacheChallenges(response: CompletedChallengeResponse) {
         val r = response.data?.map { ChallengeEntity.Mapper.from(it) } ?: ArrayList()

@@ -11,4 +11,6 @@ interface ChallengesInteractor {
 
     fun loadCompletedChallenges(username: String): Flowable<PagedList<Challenge>>
 
+    fun loadAuthoredChallenges(username: String): Flowable<List<Challenge>>
+
 }
