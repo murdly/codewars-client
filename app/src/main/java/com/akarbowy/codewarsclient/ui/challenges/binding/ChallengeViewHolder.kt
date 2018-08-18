@@ -6,26 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.akarbowy.codewarsclient.R
+import com.akarbowy.codewarsclient.controls.adapter.BindingListEventHandler
 import com.akarbowy.codewarsclient.data.network.model.Challenge
 
 
 class ChallengeViewHolder(view: View)
     : RecyclerView.ViewHolder(view) {
     private val name: TextView = view.findViewById(R.id.name)
-    private var challenge: Challenge? = null
 
-    init {
-        view.setOnClickListener {
-//            challenge?.url?.let { url ->
-//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-//                view.context.startActivity(intent)
-//            }
-        }
+    private var eventHandler: BindingListEventHandler<Challenge>? = null
+
+    fun bind(challenge: Challenge?, eventHandler: BindingListEventHandler<Challenge>?) {
+        this.eventHandler = eventHandler
+
+        name.text = challenge?.name ?: "Unkown name"
+
+        challenge?.let { handleOnItemClick(itemView, challenge) }
     }
 
-    fun bind(challenge: Challenge?) {
-        this.challenge = challenge
-        name.text = challenge?.name ?: "loading"
+    private fun handleOnItemClick(view: View, item: Challenge) {
+        view.setOnClickListener { _ ->
+            eventHandler?.onClick(item)
+        }
     }
 
     companion object {

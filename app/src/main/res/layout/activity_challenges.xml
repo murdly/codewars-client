@@ -40,7 +40,7 @@
             android:id="@+id/switcher"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#ebebeb"
+            android:background="@color/background"
             app:layout_constraintBottom_toTopOf="@id/tabLayout"
             app:layout_constraintTop_toBottomOf="@id/appbar"
             bind:setTabView="@{ viewModel.selectedTab }">
@@ -53,6 +53,7 @@
                 android:scrollbars="vertical"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 bind:completedChallengesList="@{ viewModel.completedList }"
+                bind:completedEventHandler="@{ viewModel.listEventHandler }"
                 tools:listitem="@layout/challenges_item_completed" />
 
             <android.support.v7.widget.RecyclerView
@@ -63,7 +64,7 @@
                 android:scrollbars="vertical"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 bind:authoredChallengesList="@{ viewModel.authoredList }"
-                bind:authoredEventHandler="@{ viewModel.authoredListEventHandler }"
+                bind:authoredEventHandler="@{ viewModel.listEventHandler }"
                 tools:listitem="@layout/challenges_item_authored" />
 
         </ViewSwitcher>

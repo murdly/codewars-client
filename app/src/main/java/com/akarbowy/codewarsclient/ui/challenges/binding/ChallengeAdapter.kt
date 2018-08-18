@@ -5,10 +5,13 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.akarbowy.codewarsclient.R
+import com.akarbowy.codewarsclient.controls.adapter.BindingListEventHandler
 import com.akarbowy.codewarsclient.data.network.model.Challenge
 
 
 class ChallengeAdapter : PagedListAdapter<Challenge, RecyclerView.ViewHolder>(CHALLENGE_COMPARATOR) {
+
+    var eventHandler: BindingListEventHandler<Challenge>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -21,7 +24,7 @@ class ChallengeAdapter : PagedListAdapter<Challenge, RecyclerView.ViewHolder>(CH
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            R.layout.challenges_item_completed -> (holder as ChallengeViewHolder).bind(getItem(position))
+            R.layout.challenges_item_completed -> (holder as ChallengeViewHolder).bind(getItem(position), eventHandler)
 //            R.layout.network_state_item -> (holder as NetworkStateItemViewHolder).bindTo(
 //                    networkState)
         }

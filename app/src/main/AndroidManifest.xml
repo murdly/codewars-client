@@ -28,6 +28,15 @@
                 android:value=".ui.search.view.SearchActivity"/>
 
         </activity>
+        <activity
+            android:name=".ui.detail.view.ChallengeDetailActivity"
+            android:parentActivityName=".ui.challenges.view.ChallengesActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.challenges.view.ChallengesActivity"/>
+
+        </activity>
     </application>
 
 </manifest>

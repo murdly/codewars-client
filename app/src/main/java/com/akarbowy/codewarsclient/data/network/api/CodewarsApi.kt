@@ -22,7 +22,7 @@ interface CodewarsApi {
     fun getAuthoredChallenges(@Path("id") username: String): Single<AuthoredChallengeResponse>
 
     @GET("code-challenges/{id}")
-    fun getChallengeDetail(@Path("id") username: String): Single<Challenge>
+    fun getChallengeDetail(@Path("id") id: String): Single<Challenge>
 
     companion object {
         const val BASE_URL = "https://www.codewars.com/api/v1/"

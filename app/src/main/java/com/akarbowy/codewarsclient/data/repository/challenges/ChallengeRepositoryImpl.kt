@@ -7,6 +7,7 @@ import com.akarbowy.codewarsclient.data.network.model.Challenge
 import com.akarbowy.codewarsclient.data.network.model.CompletedChallengeResponse
 import com.akarbowy.codewarsclient.data.persistance.database.AppDatabase
 import com.akarbowy.codewarsclient.data.persistance.entities.ChallengeEntity
+import com.akarbowy.codewarsclient.data.persistance.entities.UserCompletedChallengeEntity
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -26,9 +27,10 @@ class ChallengeRepositoryImpl(
 
     override fun loadCompletedChallenges(username: String): Flowable<PagedList<Challenge>> {
 
-        val boundaryCallback = ChallengeBoundaryCallback(username, api, page, this::cacheChallenges)
+//        val boundaryCallback = ChallengeBoundaryCallback(username, api, page, this::cacheChallenges)
+        page = 0
 
-        val dataSourceFactory = database.challengeDao().getChallenges()
+        val dataSourceFactory = database.challengeDao().getUserCompletedChallenges(username)
                 .map { Challenge(it.challengeId, it.name) }
         val builder = RxPagedListBuilder(dataSourceFactory, DEFAULT_PAGE_SIZE / 2)
                 .setBoundaryCallback(object : PagedList.BoundaryCallback<Challenge>() {
@@ -36,7 +38,7 @@ class ChallengeRepositoryImpl(
                         Timber.i("onZeroItemsLoaded $page")
 
                         api.getCompletedChallenges(username, 0)
-                                .doOnSuccess { cacheChallenges(it) }
+                                .doOnSuccess { cacheChallenges(username, it) }
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribeOn(Schedulers.io())
                                 .subscribe()
@@ -44,11 +46,9 @@ class ChallengeRepositoryImpl(
 
                     override fun onItemAtEndLoaded(itemAtEnd: Challenge) {
                         Timber.i("onItemAtEndLoaded $page")
-                        Single.fromCallable { database.challengeDao().count() }
-                                .flatMap { page ->
-                                    api.getCompletedChallenges(username, nextPage(page))
-                                            .doOnSuccess { cacheChallenges(it) }
-                                }
+                        page++
+                        api.getCompletedChallenges(username, page)
+                                .doOnSuccess { cacheChallenges(username, it) }
                                 .subscribeOn(Schedulers.io())
                                 .subscribe()
                     }
@@ -73,11 +73,24 @@ class ChallengeRepositoryImpl(
     }
 
 
-    private fun cacheChallenges(response: CompletedChallengeResponse) {
-        val r = response.data?.map { ChallengeEntity.Mapper.from(it) } ?: ArrayList()
+    override fun loadChallengeDetails(challengeId: String): Single<Challenge> {
+        return api.getChallengeDetail(challengeId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+    }
 
-        database.challengeDao().insertChallenge(r)
+
+    private fun cacheChallenges(username: String, response: CompletedChallengeResponse) {
+        val challenges = response.data?.map { ChallengeEntity.Mapper.from(it) } ?: ArrayList()
+
+        database.challengeDao().insertChallenge(challenges)
+
+        challenges.forEach {
+            val entity = UserCompletedChallengeEntity(username, it.challengeId)
+            database.challengeDao().insertUserCompletedChallenge(entity)
+        }
 
     }
+
 
 }

@@ -3,8 +3,6 @@ package com.akarbowy.codewarsclient.ui.challenges.viewmodel
 import android.arch.paging.PagedList
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
-import android.support.annotation.StringRes
-import com.akarbowy.codewarsclient.R
 import com.akarbowy.codewarsclient.base.BaseViewModel
 import com.akarbowy.codewarsclient.controls.adapter.BindingListEventHandler
 import com.akarbowy.codewarsclient.data.network.model.Challenge
@@ -30,7 +28,7 @@ class ChallengesViewModel(
 
     val authoredList = ObservableArrayList<Challenge>()
 
-    val authoredListEventHandler = BindingListEventHandler<Challenge>()
+    val listEventHandler = BindingListEventHandler<Challenge>()
 
     init {
 
@@ -39,13 +37,16 @@ class ChallengesViewModel(
 
     private fun initAuthoredListEventHandler() {
 
-        disposables += authoredListEventHandler.clickObserver
+        disposables += listEventHandler.clickObserver
                 .throttleFirst(1000, TimeUnit.MILLISECONDS)
-                .subscribeBy {  }
+                .subscribeBy(
+                        onNext = { onAuthoredChallengeClicked(it) }
+                )
     }
 
     fun start(username: String) {
         this.username.set(username)
+
         loadChallengesData(username)
     }
 
@@ -73,6 +74,11 @@ class ChallengesViewModel(
 
         authoredList.clear()
         authoredList.addAll(challenges)
+    }
+
+
+    private fun onAuthoredChallengeClicked(challenge: Challenge) {
+        challenge.id?.let { router.loadChallengeScreen(it) }
     }
 
     val tabSelectionListener: (ChallengeTab) -> Unit = {

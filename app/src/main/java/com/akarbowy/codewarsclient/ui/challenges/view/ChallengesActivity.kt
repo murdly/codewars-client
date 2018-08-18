@@ -25,7 +25,7 @@ class ChallengesActivity : BaseBindingActivity<ActivityChallengesBinding, Challe
 
         val username = intent.getStringExtra(EXTRA_USERNAME)
 
-        username?.let{
+        username?.let {
             viewModel?.start(it)
         }
     }
@@ -38,7 +38,15 @@ class ChallengesActivity : BaseBindingActivity<ActivityChallengesBinding, Challe
     override fun onPause() {
         super.onPause()
 
-        overridePendingTransition(0, 0);
+        setExitAndEnterAnimation()
+    }
+
+    private fun setExitAndEnterAnimation() {
+        if (isFinishing) {
+            overridePendingTransition(0, R.anim.slide_out_right)
+        } else {
+            overridePendingTransition(0, 0)
+        }
     }
 
 }

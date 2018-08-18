@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.noties.markwon.Markwon"/>
+
+        <variable
+            name="viewModel"
+            type="com.akarbowy.codewarsclient.ui.detail.viewmodel.ChallengeDetailViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_detail"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/AppTheme.ActionBar"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:fitsSystemWindows="true"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:visibility="@{ viewModel.isDataLoaded }"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="@string/detail_label_contributors"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    android:visibility="@{ viewModel.challenge.contributorsWanted }"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{ viewModel.challenge.name }"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="22sp"
+                    tools:text="Kata name"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    tools:listItem="@layout/detail_item_language"
+                    bind:setLanguages="@{ viewModel.challenge.languages }"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/detail_label_description"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:background="@color/white"
+                    android:linksClickable="true"
+                    android:padding="8dp"
+                    bind:setMarkdown="@{ viewModel.challenge }"
+                    tools:text="@tools:sample/lorem/random"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/detail_label_statistic"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"/>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/label1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_attempts"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/label2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_compelted"
+                        app:layout_constraintStart_toStartOf="@+id/label1"
+                        app:layout_constraintTop_toBottomOf="@id/label1"/>
+
+                    <TextView
+                        android:id="@+id/label3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_stars"
+                        app:layout_constraintStart_toStartOf="@+id/label2"
+                        app:layout_constraintTop_toBottomOf="@id/label2"/>
+
+                    <TextView
+                        android:id="@+id/label4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_score"
+                        app:layout_constraintTop_toBottomOf="@id/label3"
+                        bind:layout_constraintStart_toStartOf="@id/label3"/>
+
+                    <android.support.constraint.Barrier
+                        android:id="@+id/labels_barrier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:barrierDirection="right"
+                        app:constraint_referenced_ids="label1,label2,label3,label4"/>
+
+                    <TextView
+                        android:id="@+id/value1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@{ `` + viewModel.challenge.totalAttempts }"
+                        app:layout_constraintBottom_toBottomOf="@+id/label1"
+                        app:layout_constraintStart_toEndOf="@+id/labels_barrier"
+                        app:layout_constraintTop_toTopOf="@+id/label1"/>
+
+                    <TextView
+                        android:id="@+id/value2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@{ `` + viewModel.challenge.totalCompleted }"
+                        app:layout_constraintBottom_toBottomOf="@+id/label2"
+                        app:layout_constraintStart_toEndOf="@+id/labels_barrier"
+                        app:layout_constraintTop_toTopOf="@+id/label2"/>
+
+                    <TextView
+                        android:id="@+id/value3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@{ `` + viewModel.challenge.totalStars}"
+                        app:layout_constraintBottom_toBottomOf="@+id/label3"
+                        app:layout_constraintStart_toEndOf="@+id/labels_barrier"
+                        app:layout_constraintTop_toTopOf="@+id/label3"/>
+
+                    <TextView
+                        android:id="@+id/value4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@{ `` + viewModel.challenge.voteScore }"
+                        app:layout_constraintBottom_toBottomOf="@+id/label4"
+                        app:layout_constraintStart_toEndOf="@+id/labels_barrier"
+                        app:layout_constraintTop_toTopOf="@+id/label4"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{ !viewModel.isDataLoaded }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appbar"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -25,4 +25,14 @@
     <string name="challenge_tab_authored">Authored</string>
     <!--end of CHALLENGES-->
 
+    <!--CHALLENGE DETAIL-->
+    <string name="detail_label_statistic">Statistics</string>
+    <string name="detail_attempts">Attempts:</string>
+    <string name="detail_compelted">Completed:</string>
+    <string name="detail_stars">Stars:</string>
+    <string name="detail_score">Vote score:</string>
+    <string name="detail_label_description">Description</string>
+    <string name="detail_label_contributors">Contributors wanted</string>
+    <!--end of CHALLENGE DETAIL-->
+
 </resources>

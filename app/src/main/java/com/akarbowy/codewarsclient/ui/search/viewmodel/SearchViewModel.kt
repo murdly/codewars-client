@@ -39,9 +39,9 @@ class SearchViewModel(
     init {
         initUserFocusEventHandler()
 
-        loadData()
-
         subscribeToSearchQuery()
+
+        loadData()
     }
 
     private fun initUserFocusEventHandler() {

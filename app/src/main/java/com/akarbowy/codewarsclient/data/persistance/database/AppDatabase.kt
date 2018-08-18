@@ -7,13 +7,15 @@ import com.akarbowy.codewarsclient.data.persistance.converters.Converters
 import com.akarbowy.codewarsclient.data.persistance.daos.ChallengeDao
 import com.akarbowy.codewarsclient.data.persistance.daos.UserDao
 import com.akarbowy.codewarsclient.data.persistance.entities.ChallengeEntity
+import com.akarbowy.codewarsclient.data.persistance.entities.UserCompletedChallengeEntity
 import com.akarbowy.codewarsclient.data.persistance.entities.UserEntity
 
-@Database(version = 2,
+@Database(version = 1,
         exportSchema = false,
         entities = [
             UserEntity::class,
-            ChallengeEntity::class
+            ChallengeEntity::class,
+            UserCompletedChallengeEntity::class
         ]
 )
 @TypeConverters(Converters::class)

@@ -77,6 +77,8 @@ dependencies {
 
     implementation "com.jakewharton.threetenabp:threetenabp:$versions.date"
     implementation "com.jakewharton.timber:timber:$versions.timber"
+    implementation "ru.noties:markwon:$versions.markdown"
+    implementation "com.google.android:flexbox:$versions.flexbox"
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     // TESTING                                                                                //

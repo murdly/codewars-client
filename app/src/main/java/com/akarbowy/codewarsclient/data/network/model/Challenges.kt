@@ -39,27 +39,21 @@ data class AuthoredChallengeResponse(
 data class Challenge(
         @Json(name = "id") val id: String? = null,
         @Json(name = "name") val name: String? = null,
-        @Json(name = "slug") val slug: String? = null,
-        @Json(name = "category") val category: String? = null,
-        @Json(name = "publishedAt") val publishedAt: String? = null,
-        @Json(name = "approvedAt") val approvedAt: String? = null,
+//        @Json(name = "category") val category: String? = null,
+//        @Json(name = "publishedAt") val publishedAt: String? = null,
+//        @Json(name = "approvedAt") val approvedAt: String? = null,
         @Json(name = "languages") val languages: List<String>? = null,
         @Json(name = "url") val url: String? = null,
 //        @Json(name = "rank") val rank: Rank? = null,
-        @Json(name = "createdAt") val createdAt: String? = null,
-//        @Json(name = "createdBy") val createdBy: ChallengeAuthor? = null,
+//        @Json(name = "createdAt") val createdAt: String? = null,
         @Json(name = "description") val description: String? = null,
-        @Json(name = "tags") val tags: List<String>? = null,
-        @Json(name = "totalAttempts") val totalAttempts: Int? = null,
-        @Json(name = "totalCompleted") val totalCompleted: Int? = null,
-        @Json(name = "totalStars") val totalStars: Int? = null,
-        @Json(name = "voteScore") val voteScore: Int? = null
+//        @Json(name = "tags") val tags: List<String>? = null,
+        @Json(name = "totalAttempts") val totalAttempts: Int? = 0,
+        @Json(name = "totalCompleted") val totalCompleted: Int? = 0,
+        @Json(name = "totalStars") val totalStars: Int? = 0,
+        @Json(name = "voteScore") val voteScore: Int? = 0,
+        @Json(name = "contributorsWanted") val contributorsWanted: Boolean? = null
 )
 
-//@JsonSerializable
-//data class ChallengeAuthor(
-//        @Json(name = "username") val username: String? = null,
-//        @Json(name = "url") val url: String? = null
-//)
 
 

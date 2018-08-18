@@ -15,13 +15,16 @@ import com.akarbowy.codewarsclient.ui.challenges.viewmodel.ChallengesViewModel
 import com.akarbowy.codewarsclient.ui.challenges.viewmodel.ChallengesViewModel.ChallengeTab
 
 
-@BindingAdapter(value = ["completedChallengesList"])
+@BindingAdapter(value = ["completedChallengesList", "completedEventHandler"])
 fun bindCompletedChallenges(recyclerView: RecyclerView,
-                            data: PagedList<Challenge>?) {
+                            data: PagedList<Challenge>?,
+                            eventHandler: BindingListEventHandler<Challenge>) {
 
     var adapter = recyclerView.adapter as? ChallengeAdapter
     if (adapter == null) {
         adapter = ChallengeAdapter()
+
+        adapter.eventHandler = eventHandler
 
         recyclerView.adapter = adapter
 

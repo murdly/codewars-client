@@ -13,19 +13,19 @@ class ChallengeBoundaryCallback(
         private val username: String,
         private val api: CodewarsApi,
         private val page: Int,
-        private val handleResponse: (CompletedChallengeResponse) -> Unit
+        private val handleResponse: (String, CompletedChallengeResponse) -> Unit
 ) : PagedList.BoundaryCallback<Challenge>() {
 
     override fun onZeroItemsLoaded() {
 
         api.getCompletedChallenges(username, page)
-                .doOnSuccess { handleResponse(it) }
+                .doOnSuccess { handleResponse(username, it) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe()
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: Challenge) {
-        Timber.i("TAK KURWA $page")
+        Timber.i("TAK $page")
     }
 }
