@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="com.akarbowy.codewarsclient.ui.challenges.viewmodel.ChallengesViewModel.ChallengeTab" />
+        <import type="com.akarbowy.codewarsclient.ui.challenges.viewmodel.ChallengesViewModel.ChallengeTab"/>
 
         <variable
             name="viewModel"
-            type="com.akarbowy.codewarsclient.ui.challenges.viewmodel.ChallengesViewModel" />
+            type="com.akarbowy.codewarsclient.ui.challenges.viewmodel.ChallengesViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/AppTheme.ActionBar"
-                app:title="@{ @string/challenge_toolbar_title(viewModel.username) }" />
+                app:title="@{ @string/challenge_toolbar_title(viewModel.username) }"/>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -45,27 +45,56 @@
             app:layout_constraintTop_toBottomOf="@id/appbar"
             bind:setTabView="@{ viewModel.selectedTab }">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/completed_list"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                android:scrollbars="vertical"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                bind:completedChallengesList="@{ viewModel.completedList }"
-                bind:completedEventHandler="@{ viewModel.listEventHandler }"
-                tools:listitem="@layout/challenges_item_completed" />
+                android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/authored_list"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/completed_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    android:scrollbars="vertical"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    bind:completedChallengesList="@{ viewModel.completedList }"
+                    bind:completedNetworkState="@{ viewModel.completedNetworkState }"
+                    bind:completedEventHandler="@{ viewModel.listEventHandler }"
+                    tools:listitem="@layout/challenges_item_completed"/>
+
+                <include
+                    layout="@layout/state_challenges_empty"
+                    bind:isVisible="@{ !viewModel.isDataLoaded &amp;&amp; viewModel.loadedZeroCompletedItems }"/>
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{ !viewModel.isDataLoaded }"/>
+            </FrameLayout>
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                android:scrollbars="vertical"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                bind:authoredChallengesList="@{ viewModel.authoredList }"
-                bind:authoredEventHandler="@{ viewModel.listEventHandler }"
-                tools:listitem="@layout/challenges_item_authored" />
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/authored_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    android:scrollbars="vertical"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    bind:authoredChallengesList="@{ viewModel.authoredList }"
+                    bind:authoredEventHandler="@{ viewModel.listEventHandler }"
+                    tools:listitem="@layout/challenges_item_authored"/>
+
+                <include
+                    layout="@layout/state_challenges_empty"
+                    bind:isVisible="@{ !viewModel.isDataLoaded &amp;&amp; viewModel.loadedZeroAuthoredItems }"/>
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{ !viewModel.isDataLoaded }"/>
+            </FrameLayout>
 
         </ViewSwitcher>
 
@@ -82,13 +111,13 @@
                 android:id="@+id/tab_completed"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@string/challenge_tab_completed" />
+                android:text="@string/challenge_tab_completed"/>
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_authored"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@string/challenge_tab_authored" />
+                android:text="@string/challenge_tab_authored"/>
 
         </android.support.design.widget.TabLayout>
 

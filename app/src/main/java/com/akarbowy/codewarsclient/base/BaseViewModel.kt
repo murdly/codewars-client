@@ -14,6 +14,8 @@ open class BaseViewModel<I, R>(
 
     var isDataLoaded = ObservableBoolean(false)
 
+    var isErrorOnDataLoad = ObservableBoolean(false)
+
     override fun onCleared() {
         super.onCleared()
 
@@ -24,10 +26,12 @@ open class BaseViewModel<I, R>(
         Timber.w(error)
 
         isDataLoaded.set(true)
+        isErrorOnDataLoad.set(true)
     }
 
     protected open fun loadData() {
         isDataLoaded.set(false)
+        isErrorOnDataLoad.set(false)
     }
 
     protected open fun onDataLoaded() {

@@ -45,7 +45,7 @@
             android:fitsSystemWindows="true"
             android:overScrollMode="never"
             android:scrollbars="none"
-            android:visibility="@{ viewModel.isDataLoaded }"
+            android:visibility="@{ viewModel.isDataLoaded &amp;&amp; !viewModel.isErrorOnDataLoad }"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appbar">
@@ -81,8 +81,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    tools:listItem="@layout/detail_item_language"
-                    bind:setLanguages="@{ viewModel.challenge.languages }"/>
+                    bind:setLanguages="@{ viewModel.challenge.languages }"
+                    tools:listItem="@layout/detail_item_language"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -209,16 +209,25 @@
             </LinearLayout>
         </ScrollView>
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{ !viewModel.isDataLoaded }"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appbar"/>
+            app:layout_constraintTop_toBottomOf="@+id/appbar">
 
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="@{ !viewModel.isDataLoaded }"/>
+
+            <include
+                layout="@layout/state_general_error"
+                bind:isVisible="@{ viewModel.isErrorOnDataLoad }"/>
+        </FrameLayout>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

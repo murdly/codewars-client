@@ -7,6 +7,6 @@ object VisibilityConverter {
 
     @BindingConversion
     @JvmStatic
-    fun convertBooleanToVisibility(isVisible: Boolean) = if (isVisible) View.VISIBLE else View.GONE
+    fun toVisibility(isVisible: Boolean) = if (isVisible) View.VISIBLE else View.GONE
 
 }

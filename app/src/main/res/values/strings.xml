@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CodewarsClient</string>
-
+    <string name="state_general_error_title">Something went wrong</string>
+    <string name="state_general_error_instruction">Please try again</string>
 
     <!--SEARCH-->
     <string name="toolbar_action_close">Cancel</string>
@@ -9,20 +10,18 @@
     <string name="toolbar_sort_by_rank">Sort by rank</string>
     <string name="user_rank" translatable="false">#%s</string>
     <string name="user_language">%s points</string>
-    <string name="state_general_error_title">Something went wrong</string>
-    <string name="state_general_error_instruction">Please try again</string>
     <string name="state_history_empty_title">No recent searches</string>
     <string name="state_results_searching">Searching…</string>
     <string name="state_results_no_found">No results found</string>
     <string name="state_history_empty_instruction">Start searching by clicking search</string>
-    <string name="state_results_empty_title">No results</string>
-    <string name="state_results_empty_instruction">Try a different username</string>
     <!--end of SEARCH-->
 
     <!--CHALLENGES-->
     <string name="challenge_toolbar_title">%s\'s challenges</string>
     <string name="challenge_tab_completed">Completed</string>
     <string name="challenge_tab_authored">Authored</string>
+    <string name="state_challenges_empty_title">No challenges</string>
+    <string name="state_challenges_empty_instruction">Check out other users</string>
     <!--end of CHALLENGES-->
 
     <!--CHALLENGE DETAIL-->

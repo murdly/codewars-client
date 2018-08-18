@@ -12,6 +12,7 @@ import com.akarbowy.codewarsclient.data.network.model.Challenge
 
 class ChallengeViewHolder(view: View)
     : RecyclerView.ViewHolder(view) {
+
     private val name: TextView = view.findViewById(R.id.name)
 
     private var eventHandler: BindingListEventHandler<Challenge>? = null

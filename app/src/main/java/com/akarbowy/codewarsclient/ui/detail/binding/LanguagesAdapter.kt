@@ -25,8 +25,6 @@ class LanguagesAdapter : RecyclerView.Adapter<LanguageViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: LanguageViewHolder, position: Int) {
-        val adapterPosition = holder.adapterPosition
-
         holder.bindTo(languages[position])
     }
 }

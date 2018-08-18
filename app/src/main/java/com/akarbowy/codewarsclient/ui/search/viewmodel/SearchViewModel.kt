@@ -57,7 +57,8 @@ class SearchViewModel(
 
         disposables += interactor.getLastFiveSearches()
                 .subscribeBy(
-                        onNext = { onSearchEntryLoaded(it) }
+                        onNext = { onSearchEntryLoaded(it) },
+                        onError = { onErrorOccurred(it) }
                 )
     }
 

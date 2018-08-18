@@ -11,13 +11,15 @@ import com.akarbowy.codewarsclient.R
 import com.akarbowy.codewarsclient.controls.adapter.BindingListAdapter
 import com.akarbowy.codewarsclient.controls.adapter.BindingListEventHandler
 import com.akarbowy.codewarsclient.data.network.model.Challenge
+import com.akarbowy.codewarsclient.data.repository.challenges.NetworkState
 import com.akarbowy.codewarsclient.ui.challenges.viewmodel.ChallengesViewModel
 import com.akarbowy.codewarsclient.ui.challenges.viewmodel.ChallengesViewModel.ChallengeTab
 
 
-@BindingAdapter(value = ["completedChallengesList", "completedEventHandler"])
+@BindingAdapter(value = ["completedChallengesList", "completedNetworkState", "completedEventHandler"])
 fun bindCompletedChallenges(recyclerView: RecyclerView,
                             data: PagedList<Challenge>?,
+                            networkState: NetworkState?,
                             eventHandler: BindingListEventHandler<Challenge>) {
 
     var adapter = recyclerView.adapter as? ChallengeAdapter
@@ -31,8 +33,9 @@ fun bindCompletedChallenges(recyclerView: RecyclerView,
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, LinearLayoutManager.VERTICAL))
     }
 
+    adapter.setNetworkState(networkState)
+    
     adapter.submitList(data)
-
 }
 
 @BindingAdapter(value = ["authoredChallengesList", "authoredEventHandler"])
