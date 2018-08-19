@@ -57,18 +57,18 @@
                     android:scrollbars="vertical"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     bind:completedChallengesList="@{ viewModel.completedList }"
-                    bind:completedNetworkState="@{ viewModel.completedNetworkState }"
                     bind:completedEventHandler="@{ viewModel.listEventHandler }"
+                    bind:completedNetworkState="@{ viewModel.completedNetworkState }"
                     tools:listitem="@layout/challenges_item_completed"/>
 
                 <include
                     layout="@layout/state_challenges_empty"
-                    bind:isVisible="@{ !viewModel.isDataLoaded &amp;&amp; viewModel.loadedZeroCompletedItems }"/>
+                    bind:isVisible="@{ !viewModel.isCompletedDataLoaded &amp;&amp; viewModel.loadedZeroCompletedItems }"/>
 
                 <ProgressBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{ !viewModel.isDataLoaded }"/>
+                    android:visibility="@{ !viewModel.isCompletedDataLoaded }"/>
             </FrameLayout>
 
             <FrameLayout
@@ -88,12 +88,17 @@
 
                 <include
                     layout="@layout/state_challenges_empty"
-                    bind:isVisible="@{ !viewModel.isDataLoaded &amp;&amp; viewModel.loadedZeroAuthoredItems }"/>
+                    bind:isVisible="@{ viewModel.isAuthoredDataLoaded &amp;&amp; viewModel.loadedZeroAuthoredItems }"/>
+
+                <include
+                    layout="@layout/state_general_error"
+                    bind:isVisible="@{ viewModel.isAuthoredErrorOccurred }"/>
 
                 <ProgressBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{ !viewModel.isDataLoaded }"/>
+                    android:layout_gravity="center"
+                    android:visibility="@{ !viewModel.isAuthoredDataLoaded }"/>
             </FrameLayout>
 
         </ViewSwitcher>

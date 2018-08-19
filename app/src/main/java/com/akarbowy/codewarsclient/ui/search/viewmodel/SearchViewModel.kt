@@ -11,7 +11,6 @@ import com.akarbowy.codewarsclient.ui.search.router.SearchRouter
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 
@@ -81,10 +80,7 @@ class SearchViewModel(
                 .distinctUntilChanged()
                 .filter { it.isNotBlank() }
                 .doOnNext { isSearchingInProgress.set(true) }
-                .switchMapSingle {
-                    Timber.i("Searching for $it")
-                    interactor.searchUser(it)
-                }
+                .switchMapSingle { interactor.searchUser(it) }
                 .subscribeBy(
                         onNext = { onUserLoaded(it) },
                         onError = { onUserLoadingError(it) }
@@ -125,7 +121,6 @@ class SearchViewModel(
     }
 
     private fun onUserLoaded(user: SearchResult) {
-        Timber.i("User loaded $user")
 
         isSearchingInProgress.set(false)
 
@@ -139,15 +134,32 @@ class SearchViewModel(
     }
 
     private fun onUserClicked(result: SearchResult) {
-        Timber.i("User clicked $result")
 
         val userData = result as SearchResult.UserData
+
         router.loadChallengesScreen(userData.username)
+    }
+
+
+    private fun switchedToSearchMode() {
+        isInSearchMode.set(true)
+    }
+
+    private fun switchedToNormalMode() {
+        isInSearchMode.set(false)
+
+        historySearches.clear()
+        historySearches.addAll(results)
+
+        noResultsFound.set(false)
     }
 
     val searchCallback = object : SearchToolbarView.Callback {
         override fun onModeChanged(mode: SearchToolbarView.Mode) {
-            isInSearchMode.set(mode == SearchToolbarView.Mode.Search)
+            when (mode) {
+                SearchToolbarView.Mode.Search -> switchedToSearchMode()
+                SearchToolbarView.Mode.Normal -> switchedToNormalMode()
+            }
         }
 
         override fun onMenuItemClicked(itemId: Int): Boolean {
@@ -160,14 +172,11 @@ class SearchViewModel(
                     sortByRank()
                     true
                 }
-                else -> {
-                    false
-                }
+                else -> false
             }
         }
 
         override fun onQueryTextChange(queryText: String) {
-            Timber.i("On query text change $queryText")
             query = queryText
 
             subject.onNext(queryText)
@@ -184,7 +193,6 @@ class SearchViewModel(
 
         object NoUser : SearchResult()
     }
-
 
     companion object {
 

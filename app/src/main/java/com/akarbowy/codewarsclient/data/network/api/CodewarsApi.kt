@@ -26,8 +26,12 @@ interface CodewarsApi {
 
     companion object {
         const val BASE_URL = "https://www.codewars.com/api/v1/"
-        //todo secure it, firebase or smth
+
         const val API_KEY = "hfvo1yYa5rKcMNhdrnjb"
+
+        const val DEFAULT_PAGE_SIZE = 200
+
+        const val INITIAL_PAGE_INDEX = 0
     }
 
 }

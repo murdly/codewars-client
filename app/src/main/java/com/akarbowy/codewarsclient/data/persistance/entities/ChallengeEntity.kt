@@ -12,13 +12,13 @@ data class ChallengeEntity(
         @ColumnInfo
         val challengeId: String,
         val name: String?
-) {
-    object Mapper {
-        fun from(data: Challenge) =
-                ChallengeEntity(
-                        data.id ?: UUID.randomUUID().toString(),
-                        data.name
-                )
-    }
+)
+
+open class ChallengeMapper {
+    open fun from(data: Challenge) =
+            ChallengeEntity(
+                    data.id ?: UUID.randomUUID().toString(),
+                    data.name
+            )
 }
 

@@ -12,6 +12,7 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/state_results_no_found"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:visibility="@{ isVisible }">

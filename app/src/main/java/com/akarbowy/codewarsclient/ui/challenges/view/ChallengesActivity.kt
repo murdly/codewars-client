@@ -1,6 +1,8 @@
 package com.akarbowy.codewarsclient.ui.challenges.view
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.widget.Toast
 import com.akarbowy.codewarsclient.R
 import com.akarbowy.codewarsclient.base.BaseBindingActivity
 import com.akarbowy.codewarsclient.databinding.ActivityChallengesBinding
@@ -28,6 +30,14 @@ class ChallengesActivity : BaseBindingActivity<ActivityChallengesBinding, Challe
         username?.let {
             viewModel?.start(it)
         }
+
+        observeEvents()
+    }
+
+    private fun observeEvents() {
+        viewModel?.allDataLoadedEvent?.observe(this, Observer {
+            Toast.makeText(this, getString(R.string.state_all_fetched), Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun setUpToolbar() {

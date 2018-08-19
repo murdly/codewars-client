@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import com.akarbowy.codewarsclient.R
 import com.akarbowy.codewarsclient.data.repository.challenges.NetworkState
 import com.akarbowy.codewarsclient.data.repository.challenges.Status
@@ -16,9 +17,12 @@ class NetworkStateItemViewHolder(view: View)
 
     private val loadingIndicator: ProgressBar = view.findViewById(R.id.loading_indicator)
 
+    private val errorView: TextView = view.findViewById(R.id.error_message)
+
     fun bind(networkState: NetworkState?) {
 
         loadingIndicator.visibility = VisibilityConverter.toVisibility(networkState?.status == Status.RUNNING)
+        errorView.visibility = VisibilityConverter.toVisibility(networkState?.msg != null)
     }
 
     companion object {

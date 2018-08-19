@@ -1,7 +1,8 @@
 package com.akarbowy.codewarsclient
 
+import android.content.Context
+import android.support.multidex.MultiDex
 import com.akarbowy.codewarsclient.injection.DaggerAppComponent
-import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import io.reactivex.plugins.RxJavaPlugins
@@ -13,6 +14,12 @@ class App : DaggerApplication() {
 
     @Inject
     lateinit var loggingTree: Timber.Tree
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+
+        MultiDex.install(this)
+    }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerAppComponent.builder().create(this)
@@ -26,7 +33,6 @@ class App : DaggerApplication() {
     }
 
     private fun setupThirdParty() {
-        initDateTime()
         initRxJavaPlugins()
     }
 
@@ -36,11 +42,6 @@ class App : DaggerApplication() {
 
     private fun initTimber() {
         Timber.plant(loggingTree)
-    }
-
-    private fun initDateTime() {
-        AndroidThreeTen.init(this)
-
     }
 
     private fun initRxJavaPlugins() {

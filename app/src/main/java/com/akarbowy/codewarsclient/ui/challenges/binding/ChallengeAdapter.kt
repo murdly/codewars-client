@@ -30,11 +30,6 @@ class ChallengeAdapter : PagedListAdapter<Challenge, RecyclerView.ViewHolder>(CH
             R.layout.challenges_item_completed -> (holder as ChallengeViewHolder).bind(getItem(position), eventHandler)
             R.layout.network_state_item -> (holder as NetworkStateItemViewHolder).bind(networkState)
         }
-
-//        when (holder) {
-//            is ChallengeViewHolder -> (holder as ChallengeViewHolder).bind(getItem(position), eventHandler)
-//            is NetworkStateItemViewHolder -> (holder as NetworkStateItemViewHolder).bind(networkState)
-//        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -43,8 +38,6 @@ class ChallengeAdapter : PagedListAdapter<Challenge, RecyclerView.ViewHolder>(CH
         } else {
             R.layout.challenges_item_completed
         }
-//        return             R.layout.network_state_item
-
     }
 
     override fun getItemCount(): Int {

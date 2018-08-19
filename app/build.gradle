@@ -12,8 +12,12 @@ android {
         applicationId "com.akarbowy.codewarsclient"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
+
+        multiDexEnabled true
+
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -34,6 +38,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    // BUILD                                                                                   //
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    implementation "com.android.support:multidex:$versions.multidex"
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     // MAIN                                                                                   //
@@ -75,7 +85,6 @@ dependencies {
     // UTIL                                                                                   //
     ////////////////////////////////////////////////////////////////////////////////////////////
 
-    implementation "com.jakewharton.threetenabp:threetenabp:$versions.date"
     implementation "com.jakewharton.timber:timber:$versions.timber"
     implementation "ru.noties:markwon:$versions.markdown"
     implementation "com.google.android:flexbox:$versions.flexbox"
@@ -90,4 +99,6 @@ dependencies {
     testImplementation "org.robolectric:robolectric:$versions.robolectric"
     androidTestImplementation "com.android.support.test:rules:$versions.rules"
     testImplementation "org.mockito:mockito-core:$versions.mockito"
+    testImplementation "android.arch.core:core-testing:$versions.archCore"
+
 }

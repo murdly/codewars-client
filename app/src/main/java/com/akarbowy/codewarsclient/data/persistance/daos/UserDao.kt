@@ -11,7 +11,7 @@ import io.reactivex.Flowable
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(note: UserEntity): Long
+    fun insertUser(user: UserEntity): Long
 
     @Query("SELECT * FROM users ORDER BY dateCreated DESC LIMIT :count")
     fun getUsers(count: Int): Flowable<List<UserEntity>>

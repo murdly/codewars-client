@@ -20,6 +20,8 @@
     <string name="challenge_toolbar_title">%s\'s challenges</string>
     <string name="challenge_tab_completed">Completed</string>
     <string name="challenge_tab_authored">Authored</string>
+    <string name="state_all_fetched">All challenges has been loaded</string>
+    <string name="state_error">Something went wrong. Please try again</string>
     <string name="state_challenges_empty_title">No challenges</string>
     <string name="state_challenges_empty_instruction">Check out other users</string>
     <!--end of CHALLENGES-->
