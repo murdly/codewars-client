@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CodewarsClient</string>
+    <string name="app_name">Kodlars</string>
     <string name="state_general_error_title">Something went wrong</string>
     <string name="state_general_error_instruction">Please try again</string>
 
