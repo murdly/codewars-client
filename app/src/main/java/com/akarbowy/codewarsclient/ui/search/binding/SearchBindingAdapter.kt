@@ -41,6 +41,7 @@ fun bindRecentSearches(recyclerView: RecyclerView,
         })
 
     }
+
     data?.let {
         adapter.list = data as ArrayList<SearchViewModel.SearchResult>
         adapter.notifyDataSetChanged()
@@ -56,6 +57,4 @@ fun bindSearchToolbar(toolbar: SearchToolbarView,
 
     toolbar.callback = callback
     toolbar.query = query
-
-
 }
