@@ -3,7 +3,6 @@ package com.akarbowy.codewarsclient.ui.search.interactor
 import com.akarbowy.codewarsclient.data.persistance.entities.UserEntity
 import com.akarbowy.codewarsclient.data.repository.users.UserRepository
 import com.akarbowy.codewarsclient.ui.search.viewmodel.SearchViewModel
-import com.akarbowy.codewarsclient.ui.search.viewmodel.SearchViewModel.Companion.INVALID_USER_DATA
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -36,15 +35,7 @@ class SearchInteractorImpl(
 
     private fun toUserData(user: UserEntity): SearchViewModel.SearchResult {
 
-        var data: SearchViewModel.SearchResult = INVALID_USER_DATA
-
-        user.userId.also { id ->
-            user.position?.also { position ->
-                data = SearchViewModel.SearchResult.UserData(id, position, user.bestLanguage)
-            }
-        }
-
-        return data
+        return SearchViewModel.SearchResult.UserData(user.userId, user.position, user.bestLanguage)
     }
 
 }

@@ -33,7 +33,7 @@ class SearchViewModel(
 
     var query: String? = null
 
-    val results = mutableListOf<SearchResult>()
+    private val results = mutableListOf<SearchResult>()
 
     init {
         initUserFocusEventHandler()
@@ -187,16 +187,11 @@ class SearchViewModel(
     sealed class SearchResult {
         data class UserData(
                 val username: String,
-                val position: Long,
+                val position: Long? = null,
                 val bestLanguageText: String? = null
         ) : SearchResult()
 
         object NoUser : SearchResult()
     }
 
-    companion object {
-
-        val INVALID_USER_DATA = SearchResult.NoUser
-
-    }
 }
